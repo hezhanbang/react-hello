@@ -18,9 +18,13 @@ class HebPlayerPort {
     script.onload = HebPlayerPort.on_load;
     script.src = streamMediaJsPath + '?_r=' + Math.random();
     document.head.appendChild(script);
+    HebPlayerPort.script = script;
   }
 
   static on_error() {
+    document.head.removeChild(HebPlayerPort.script);
+    HebPlayerPort.script = null;
+
     console.error('>>>>>>>>>>> fail to load hebPlayer');
     //alert('>>>>>>>>>>> fail to load hebPlayer');
   }
@@ -28,6 +32,9 @@ class HebPlayerPort {
   static on_load(){
     let ret = window.hebPlayer.init(HebPlayerPort.playerNotify);
     if (window.hebPlayer.isFailStr(ret)) {
+      document.head.removeChild(HebPlayerPort.script);
+      HebPlayerPort.script = null;
+
       console.error('>>>>>>>>>>> fail to init hebPlayer : ' + ret);
       //alert('fail to init hebPlayer : ' + ret);
       return;
