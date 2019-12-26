@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import HebPlayer from './hebPlayerLoader';
+import HebPlayerPort from './hebPlayerLoader';
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
   componentDidMount() {
-    HebPlayer.init('http://www.baidu.com/');
+    HebPlayerPort.init('http://172.21.4.114:9004/player/hebPlayer.safe.js');
   }
 
   render() {
