@@ -3,8 +3,14 @@ class HebPlayerPort {
 
   //网页生命周期内，只需要初始化一次。
   static init(streamMediaJsPath) {
+    if (false === HebPlayerPort.isNull(HebPlayerPort.corePlayer)) {
+      return;
+    }
+
+    if (HebPlayerPort.isNull(streamMediaJsPath)) {
+      streamMediaJsPath = 'http://172.21.4.114:9004/player/hebPlayer.safe.js';
+    }
     //alert(streamMediaJsPath);
-    HebPlayerPort.corePlayer = null;
 
     let script = document.createElement('script');
     script.charset = 'UTF-8';
@@ -32,7 +38,7 @@ class HebPlayerPort {
   }
 
   static isInited() {
-    return HebPlayerPort.corePlayer != null;
+    return !HebPlayerPort.isNull(HebPlayerPort.corePlayer);
   }
 
   static playerNotify(token, taskID, containerID, result, detail) {
@@ -40,7 +46,7 @@ class HebPlayerPort {
   }
 
   static playVideo(divID, gbID, callback) {
-    if(null === HebPlayerPort.corePlayer || undefined === HebPlayerPort.corePlayer) {
+    if(HebPlayerPort.isInited()) {
       console.error('hebPlayer Not initialized yet!');
     }
 
@@ -48,13 +54,16 @@ class HebPlayerPort {
   }
 
   static stopVideo(gbID) {
-    if(null === HebPlayerPort.corePlayer || undefined === HebPlayerPort.corePlayer) {
+    if(HebPlayerPort.isInited()) {
       console.error('hebPlayer Not initialized yet!');
     }
 
     HebPlayerPort.corePlayer.stop(gbID);
   }
 
+  static isNull(obj) {
+    return null === obj || undefined === obj;
+  }
 }
 
 export default HebPlayerPort;
