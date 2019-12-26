@@ -6,6 +6,9 @@ import './App.css';
 class App extends Component {
   componentDidMount() {
     HebPlayerPort.init('http://172.21.4.114:9004/player/hebPlayer.safe.js');
+    setTimeout(function() {
+      HebPlayerPort.playVideo("div1", "34020000001320550001", null);
+    }, 1000*5);
   }
 
   render() {

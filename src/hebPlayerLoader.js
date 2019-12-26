@@ -53,19 +53,21 @@ class HebPlayerPort {
   }
 
   static playVideo(divID, gbID, callback) {
-    if(HebPlayerPort.isInited()) {
+    if(!HebPlayerPort.isInited()) {
       console.error('hebPlayer Not initialized yet!');
     }
 
     HebPlayerPort.corePlayer.play(divID, gbID, callback);
+    console.log('done do do playVideo');
   }
 
   static stopVideo(gbID) {
-    if(HebPlayerPort.isInited()) {
+    if(!HebPlayerPort.isInited()) {
       console.error('hebPlayer Not initialized yet!');
     }
 
     HebPlayerPort.corePlayer.stop(gbID);
+    console.log('done do do stopVideo');
   }
 
   static isNull(obj) {
