@@ -40,7 +40,7 @@ class HebPlayerPort {
   }
 
   static playVideo(divID, gbID, callback) {
-    if(null === HebPlayerPort.corePlayer) {
+    if(null === HebPlayerPort.corePlayer || undefined === HebPlayerPort.corePlayer) {
       console.error('hebPlayer Not initialized yet!');
     }
 
@@ -48,7 +48,7 @@ class HebPlayerPort {
   }
 
   static stopVideo(gbID) {
-    if(null === HebPlayerPort.corePlayer) {
+    if(null === HebPlayerPort.corePlayer || undefined === HebPlayerPort.corePlayer) {
       console.error('hebPlayer Not initialized yet!');
     }
 
