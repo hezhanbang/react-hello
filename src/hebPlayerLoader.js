@@ -27,10 +27,10 @@ class HebPlayerPort {
 
   static on_load(){
     var ret = window.hebPlayer.init(HebPlayerPort.playerNotify);
-		if (window.hebPlayer.isFailStr(ret)) {
-			console.error('>>>>>>>>>>> fail to init hebPlayer : ' + ret);
-			//alert('fail to init hebPlayer : ' + ret);
-			return;
+    if (window.hebPlayer.isFailStr(ret)) {
+      console.error('>>>>>>>>>>> fail to init hebPlayer : ' + ret);
+      //alert('fail to init hebPlayer : ' + ret);
+      return;
     }
 
     HebPlayerPort.corePlayer = window.hebPlayer;
