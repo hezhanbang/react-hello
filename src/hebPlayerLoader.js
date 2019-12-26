@@ -40,6 +40,7 @@ class HebPlayerPort {
       return;
     }
 
+    HebPlayerPort.nextDivID = 0;
     HebPlayerPort.corePlayer = window.hebPlayer;
     console.log('!!! done to initialize hebPlayer !!!');
   }
@@ -52,13 +53,24 @@ class HebPlayerPort {
     console.log('hebPlayer notify: ' + token + ' ' + taskID + ' ' + containerID + ' ' + result + ' ' + detail);
   }
 
-  static playVideo(divID, gbID, callback) {
+  static playVideo(gbID, divID, callback) {
     if(!HebPlayerPort.isInited()) {
       console.error('hebPlayer Not initialized yet!');
     }
 
     HebPlayerPort.corePlayer.play(divID, gbID, callback);
-    console.log('done do do playVideo');
+    console.log('done to do heb playVideo');
+  }
+
+  static playVideo2(gbID, divObj, callback) {
+    if(!HebPlayerPort.isInited()) {
+      console.error('hebPlayer Not initialized yet!');
+    }
+
+    divObj.id = 'hebP_' + HebPlayerPort.nextDivID;
+    HebPlayerPort.nextDivID++;
+    HebPlayerPort.playVideo(gbID, divObj.id, callback);
+    console.log('done to do heb playVideo2');
   }
 
   static stopVideo(gbID) {
@@ -67,7 +79,7 @@ class HebPlayerPort {
     }
 
     HebPlayerPort.corePlayer.stop(gbID);
-    console.log('done do do stopVideo');
+    console.log('done to do stopVideo');
   }
 
   static isNull(obj) {

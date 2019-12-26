@@ -4,11 +4,18 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.playDiv = React.createRef();
+  }
+
+  componentDidMount() { 
     HebPlayerPort.init('http://172.21.4.114:9004/player/hebPlayer.safe.js');
-    setTimeout(function() {
-      HebPlayerPort.playVideo("div1", "34020000001320550001", null);
-    }, 1000*5);
+    
+    let fun = function() {
+      HebPlayerPort.playVideo2("34020000001320550001", this.playDiv.current, null);
+    };
+    setTimeout(fun.bind(this), 1000*2);
   }
 
   render() {
@@ -21,7 +28,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <video id="div1" className="App-video" />
+        <video ref={this.playDiv} className="App-video" test2="123abcd" />
       </div>
     );
   }
