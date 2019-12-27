@@ -10,7 +10,7 @@ class App extends Component {
   }
 
   componentDidMount() { 
-    HebPlayerPort.init('http://172.21.4.114:9004/player/hebPlayer.safe.js');
+    HebPlayerPort.init('http://172.21.4.114:9004/player/hebPlayer.safe.js', true);
     
     let fun = function() {
       HebPlayerPort.playVideo2("34020000001320550001", this.playDiv.current, null);

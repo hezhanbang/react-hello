@@ -2,21 +2,30 @@
 class HebPlayerPort {
 
   //网页生命周期内，只需要初始化一次。
-  static init(streamMediaJsPath) {
+  static init(streamMediaJsPath, noCache) {
     if (false === HebPlayerPort.isNull(HebPlayerPort.corePlayer)) {
       return;
+    }
+
+    if (!HebPlayerPort.isNull(window.hebPlayer)){
+      HebPlayerPort.on_load();
+      return
     }
 
     if (HebPlayerPort.isNull(streamMediaJsPath)) {
       streamMediaJsPath = 'http://172.21.4.114:9004/player/hebPlayer.safe.js';
     }
     //alert(streamMediaJsPath);
+    let suffix = '';
+    if (!HebPlayerPort.isNull(noCache) && true === noCache) {
+      suffix = '?_r=' + Math.random();
+    }
 
     let script = document.createElement('script');
     script.charset = 'UTF-8';
     script.onerror = HebPlayerPort.on_error;
     script.onload = HebPlayerPort.on_load;
-    script.src = streamMediaJsPath + '?_r=' + Math.random();
+    script.src = streamMediaJsPath + suffix;
     document.head.appendChild(script);
     HebPlayerPort.script = script;
   }
