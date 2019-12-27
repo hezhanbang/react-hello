@@ -1,17 +1,20 @@
 .App-root {
   width:410px;
-  height: 370px;
+  height: 340px;
   background-color:red;
   margin: 5px;
+  padding: 5px;
   float: left;
 }
 
 .App-gbID {
   width: 300px;
+  margin: 5px;
 }
 
 .App-video {
   width: 400px;
   height: 300px;
   background-color: green;
+  margin: 5px;
 }

@@ -68,7 +68,7 @@ class HebPlayerPort {
     }
 
     HebPlayerPort.corePlayer.play(divID, gbID, callback);
-    console.log('done to do heb playVideo');
+    console.log('done to do heb playVideo [' + gbID + ']');
   }
 
   static playVideo2(gbID, divObj, callback) {
@@ -88,7 +88,7 @@ class HebPlayerPort {
     }
 
     HebPlayerPort.corePlayer.stop(gbID);
-    console.log('done to do stopVideo');
+    console.log('done to do heb stopVideo [' + gbID + ']');
   }
 
   static isNull(obj) {
