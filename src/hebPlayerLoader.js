@@ -2,20 +2,27 @@
 class HebPlayerPort {
 
   //网页生命周期内，只需要初始化一次。
-  static init(streamMediaJsPath, noCache) {
+  static init(streamMediaJsUrl, noCache) {
     if (false === HebPlayerPort.isNull(HebPlayerPort.corePlayer)) {
       return;
     }
 
     if (!HebPlayerPort.isNull(window.hebPlayer)){
+      let temp = HebPlayerPort.getScriptFileUrl();
+      HebPlayerPort.setApiUrl(temp);
       HebPlayerPort.on_load();
-      return
+      return;
     }
 
-    if (HebPlayerPort.isNull(streamMediaJsPath)) {
-      streamMediaJsPath = 'http://172.21.4.114:9004/player/hebPlayer.safe.js';
+    if (HebPlayerPort.isNull(streamMediaJsUrl) || '' === streamMediaJsUrl) {
+      streamMediaJsUrl = 'http://172.21.4.114:9004/player/hebPlayer.safe.js';
     }
-    //alert(streamMediaJsPath);
+    if (streamMediaJsUrl.length < 11) {
+      return;
+    }
+    HebPlayerPort.setApiUrl(streamMediaJsUrl);
+    //alert(streamMediaJsUrl);
+
     let suffix = '';
     if (!HebPlayerPort.isNull(noCache) && true === noCache) {
       suffix = '?_r=' + Math.random();
@@ -25,7 +32,7 @@ class HebPlayerPort {
     script.charset = 'UTF-8';
     script.onerror = HebPlayerPort.on_error;
     script.onload = HebPlayerPort.on_load;
-    script.src = streamMediaJsPath + suffix;
+    script.src = streamMediaJsUrl + suffix;
     document.head.appendChild(script);
     HebPlayerPort.script = script;
   }
@@ -39,7 +46,7 @@ class HebPlayerPort {
   }
 
   static on_load(){
-    let ret = window.hebPlayer.init(HebPlayerPort.playerNotify);
+    let ret = window.hebPlayer.init(HebPlayerPort.streamMediaApiUrl, HebPlayerPort.playerNotify);
     if (window.hebPlayer.isFailStr(ret)) {
       document.head.removeChild(HebPlayerPort.script);
       HebPlayerPort.script = null;
@@ -91,9 +98,37 @@ class HebPlayerPort {
     console.log('done to do heb stopVideo [' + gbID + ']');
   }
 
+  static getScriptFileUrl() {
+    let sc = document.getElementsByTagName("script");
+    let idx = 0;
+    for (; idx < sc.length; idx++) {
+      let s = sc.item(idx);
+      if (s.src && s.src.match(/hebPlayer\.js$/)) {
+        return s.src; 
+      }
+      if (s.src && s.src.match(/hebPlayer\.min\.js$/)) {
+        return s.src; 
+      }
+      if (s.src && s.src.match(/hebPlayer\.safe\.js$/)) {
+        return s.src; 
+      }
+    }
+    return '';
+  }
+
+  static setApiUrl(scriptUrl) {
+    let tmp = scriptUrl.substr(8);
+    let end = tmp.indexOf('/');
+    if (end < 0) {
+      return;
+    }
+    HebPlayerPort.streamMediaApiUrl = scriptUrl.substr(0,8) + tmp.substr(0, end + 1) + 'api';
+  }
+
   static isNull(obj) {
     return null === obj || undefined === obj;
   }
+
 }
 
 export default HebPlayerPort;
