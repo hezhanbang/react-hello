@@ -4,21 +4,21 @@ class HebPlayerPort {
   //网页生命周期内，只需要初始化一次。
   static init(streamMediaJsUrl, noCache) {
     if (false === HebPlayerPort.isNull(HebPlayerPort.corePlayer)) {
-      return;
+      return -1;
     }
 
     if (!HebPlayerPort.isNull(window.hebPlayer)){
       let temp = HebPlayerPort.getScriptFileUrl();
       HebPlayerPort.setApiUrl(temp);
       HebPlayerPort.on_load();
-      return;
+      return -2;
     }
 
     if (HebPlayerPort.isNull(streamMediaJsUrl) || '' === streamMediaJsUrl) {
       streamMediaJsUrl = 'http://172.21.4.114:9004/player/hebPlayer.safe.js';
     }
     if (streamMediaJsUrl.length < 11) {
-      return;
+      return -3;
     }
     HebPlayerPort.setApiUrl(streamMediaJsUrl);
     //alert(streamMediaJsUrl);
@@ -35,6 +35,8 @@ class HebPlayerPort {
     script.src = streamMediaJsUrl + suffix;
     document.head.appendChild(script);
     HebPlayerPort.script = script;
+  
+    return 0;
   }
 
   static on_error() {
