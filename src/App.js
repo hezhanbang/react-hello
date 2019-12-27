@@ -20,15 +20,11 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <video ref={this.playDiv} className="App-video" test2="123abcd" />
+      <div className="App-root">
+        <input className="App-gbID" type="text" value="3402000000132055000x" /><br/>
+        <button type="button">play</button>
+        <button type="button">stop</button>
+        <div ref={this.playDiv} className="App-video" test2="123abcd" ></div>
       </div>
     );
   }
