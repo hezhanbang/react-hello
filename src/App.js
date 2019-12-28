@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import HebPlayerPort from './hebPlayerLoader';
 import './App.css';
 
-class HelloPlayer extends Component {
+class DemoPlayer extends Component {
   constructor(props) {
     super(props);
     this.curruntID = '';
@@ -32,4 +32,4 @@ class HelloPlayer extends Component {
 
 }
 
-export default HelloPlayer;
+export default DemoPlayer;

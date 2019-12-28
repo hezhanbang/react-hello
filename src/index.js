@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import HelloPlayer from './App';
+import DemoPlayer from './App';
 import HebPlayerPort from './hebPlayerLoader';
 import './index.css';
 
-HebPlayerPort.init(null, true);
+HebPlayerPort.init('http://172.21.4.114:9004/player/hebPlayer.js', true);
 
 ReactDOM.render(
-  <div><HelloPlayer /><HelloPlayer /><HelloPlayer /></div>,
+  <div><DemoPlayer /><DemoPlayer /><DemoPlayer /></div>,
   document.getElementById('root')
 );

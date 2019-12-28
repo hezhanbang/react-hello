@@ -76,7 +76,7 @@ class HebPlayerPort {
       console.error('hebPlayer Not initialized yet!');
     }
 
-    HebPlayerPort.corePlayer.play(divID, gbID, callback);
+    HebPlayerPort.corePlayer.play(gbID, divID, callback);
     console.log('done to do heb playVideo [' + gbID + ']');
   }
 
@@ -85,8 +85,10 @@ class HebPlayerPort {
       console.error('hebPlayer Not initialized yet!');
     }
 
-    divObj.id = 'hebP_' + HebPlayerPort.nextDivID;
-    HebPlayerPort.nextDivID++;
+    if (HebPlayerPort.isNull(divObj.id) || divObj.id.length <= 0) {
+      divObj.id = 'hebP_' + HebPlayerPort.nextDivID;
+      HebPlayerPort.nextDivID++;
+    }
     HebPlayerPort.playVideo(gbID, divObj.id, callback);
     console.log('done to do heb playVideo2');
   }
