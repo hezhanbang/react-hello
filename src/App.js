@@ -12,7 +12,13 @@ class DemoPlayer extends Component {
 
   onPlay() {
     this.curruntID = this.gbID.current.value;
-    HebPlayerPort.playVideo2(this.curruntID, this.videoDiv.current, null);
+    HebPlayerPort.playVideo2(this.curruntID, this.videoDiv.current,  (type, a,b,c,d)=> {
+      if ("resolution" === type) {
+        console.log("resolution is %s", a);
+      }else if('dynamicInfo' === type) {
+        console.log("dynamicInfo is %skbps, received:%s, lost:%s %sfps", a, b, c, d);
+      }
+    });
   }
 
   onStop() {
