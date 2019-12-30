@@ -7,6 +7,7 @@ class DemoPlayer extends Component {
     super(props);
     this.curruntID = '';
     this.gbID = React.createRef();
+    this.muteBtn = React.createRef();
     this.videoDiv = React.createRef();
   }
 
@@ -25,12 +26,23 @@ class DemoPlayer extends Component {
     HebPlayerPort.stopVideo(this.curruntID);
   }
 
+  onMute() {
+    if ('to muted' === this.muteBtn.current.innerHTML) {
+      HebPlayerPort.setMuted(this.curruntID, true);
+      this.muteBtn.current.innerHTML = 'cancel muted';
+    }else {
+      HebPlayerPort.setMuted(this.curruntID, false);
+      this.muteBtn.current.innerHTML = 'to muted';
+    }
+  }
+
   render() {
     return (
       <div className="App-root">
         <input ref={this.gbID} className="App-gbID" type="text" defaultValue="3402000000132055000x" />
         <button type="button" onClick={this.onPlay.bind(this)} >play</button>
         <button type="button" onClick={this.onStop.bind(this)} >stop</button>
+        <button ref={this.muteBtn} type="button" onClick={this.onMute.bind(this)} >to mute</button>
         <div ref={this.videoDiv} className="App-video" test2="123abcd" ></div>
       </div>
     );

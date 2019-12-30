@@ -102,6 +102,12 @@ class HebPlayerPort {
     console.log('done to do heb stopVideo [' + gbID + ']');
   }
 
+  static setMuted(gbID, isTrue) {
+    let ret = HebPlayerPort.corePlayer.setMuted(gbID, isTrue);
+    console.log('done to do heb setMuted [' + gbID + ']');
+    return ret;
+  }
+
   static getScriptFileUrl() {
     let sc = document.getElementsByTagName("script");
     let idx = 0;
