@@ -4,14 +4,14 @@ class HebPlayerPort {
   //网页生命周期内，只需要初始化一次。
   static init(streamMediaJsUrl, noCache) {
     if (false === HebPlayerPort.isNull(HebPlayerPort.corePlayer)) {
-      return -1;
+      return 0;
     }
 
     if (!HebPlayerPort.isNull(window.hebPlayer)){
       let temp = HebPlayerPort.getScriptFileUrl();
       HebPlayerPort.setApiUrl(temp);
       HebPlayerPort.on_load();
-      return -2;
+      return 0;
     }
 
     if (HebPlayerPort.isNull(streamMediaJsUrl) || '' === streamMediaJsUrl) {
@@ -73,7 +73,7 @@ class HebPlayerPort {
 
   static playVideo(gbID, divID, callback) {
     if(!HebPlayerPort.isInited()) {
-      console.error('hebPlayer Not initialized yet!');
+      return '[fail] hebPlayer Not initialized yet!';
     }
     if(!HebPlayerPort.isGbID(gbID)) {
       return "[fail] 非法的gb28181设备编号";
@@ -84,7 +84,7 @@ class HebPlayerPort {
 
   static playVideo2(gbID, divObj, callback) {
     if(!HebPlayerPort.isInited()) {
-      console.error('hebPlayer Not initialized yet!');
+      return '[fail] hebPlayer Not initialized yet!';
     }
 
     if (HebPlayerPort.isNull(divObj.id) || divObj.id.length <= 0) {
@@ -96,7 +96,7 @@ class HebPlayerPort {
 
   static stopVideo(gbID) {
     if(!HebPlayerPort.isInited()) {
-      console.error('hebPlayer Not initialized yet!');
+      return '[fail] hebPlayer Not initialized yet!';
     }
     if(!HebPlayerPort.isGbID(gbID)) {
       return "[fail] 非法的gb28181设备编号";
@@ -107,7 +107,7 @@ class HebPlayerPort {
 
   static setMuted(gbID, isTrue) {
     if(!HebPlayerPort.isInited()) {
-      console.error('hebPlayer Not initialized yet!');
+      return '[fail] hebPlayer Not initialized yet!';
     }
     if(!HebPlayerPort.isGbID(gbID)) {
       return "[fail] 非法的gb28181设备编号";
