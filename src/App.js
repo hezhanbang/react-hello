@@ -8,6 +8,7 @@ class DemoPlayer extends Component {
     this.curruntID = '';
     this.gbID = React.createRef();
     this.muteBtn = React.createRef();
+    this.talkbackBtn = React.createRef();
     this.videoDiv = React.createRef();
   }
 
@@ -51,6 +52,20 @@ class DemoPlayer extends Component {
     }
   }
 
+  onTalkback() {
+    if ('enable talkback' === this.talkbackBtn.current.innerHTML) {
+      let ret = HebPlayerPort.setTalkback(this.curruntID, true);
+      console.log("setTalkback return is %s", ret);
+   
+      this.talkbackBtn.current.innerHTML = 'disable talkback';
+    }else {
+      let ret = HebPlayerPort.setTalkback(this.curruntID, false);
+      console.log("setTalkback return is %s", ret);
+    
+      this.talkbackBtn.current.innerHTML = 'enable talkback';
+    }
+  }
+
   render() {
     return (
       <div className="App-root">
@@ -58,6 +73,7 @@ class DemoPlayer extends Component {
         <button type="button" onClick={this.onPlay.bind(this)} >play</button>
         <button type="button" onClick={this.onStop.bind(this)} >stop</button>
         <button ref={this.muteBtn} type="button" onClick={this.onMute.bind(this)} >to mute</button>
+        <button ref={this.talkbackBtn} type="button" onClick={this.onTalkback.bind(this)} >enable talkback</button>
         <div ref={this.videoDiv} className="App-video" test2="123abcd" ></div>
       </div>
     );

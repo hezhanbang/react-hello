@@ -116,6 +116,17 @@ class HebPlayerPort {
     return HebPlayerPort.corePlayer.setMuted(gbID, isTrue);
   }
 
+  static setTalkback(gbID, enable) {
+    if(!HebPlayerPort.isInited()) {
+      return '[fail] hebPlayer Not initialized yet!';
+    }
+    if(!HebPlayerPort.isGbID(gbID)) {
+      return "[fail] 非法的gb28181设备编号";
+    }
+
+    return HebPlayerPort.corePlayer.setTalkback(gbID, enable);
+  }
+
   static getScriptFileUrl() {
     let sc = document.getElementsByTagName("script");
     let idx = 0;
