@@ -102,8 +102,7 @@ class HebPlayerPort {
       return "[fail] 非法的gb28181设备编号";
     }
 
-    HebPlayerPort.corePlayer.stop(gbID);
-    console.log('done to do heb stopVideo [' + gbID + ']');
+    return HebPlayerPort.corePlayer.stop(gbID);
   }
 
   static setMuted(gbID, isTrue) {
@@ -114,9 +113,7 @@ class HebPlayerPort {
       return "[fail] 非法的gb28181设备编号";
     }
 
-    let ret = HebPlayerPort.corePlayer.setMuted(gbID, isTrue);
-    console.log('done to do heb setMuted [' + gbID + ']');
-    return ret;
+    return HebPlayerPort.corePlayer.setMuted(gbID, isTrue);
   }
 
   static getScriptFileUrl() {

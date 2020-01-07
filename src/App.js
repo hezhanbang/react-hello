@@ -20,6 +20,12 @@ class DemoPlayer extends Component {
         console.log("dynamicInfo is %skbps, received:%s, lost:%s %sfps", a, b, c, d);
       }else if("offline" === type) {
         console.log("device is offline");
+      }else if("playing" === type) {
+        console.log("video now is playing");
+      }else if("stopped" === type) {
+        console.log("video now is stopped");
+      }else if("broken" === type) {
+        console.log("video now is broken, it will reconnect again soon");
       }
     });
 
@@ -33,10 +39,14 @@ class DemoPlayer extends Component {
 
   onMute() {
     if ('to muted' === this.muteBtn.current.innerHTML) {
-      HebPlayerPort.setMuted(this.curruntID, true);
+      let ret = HebPlayerPort.setMuted(this.curruntID, true);
+      console.log("stop return is %s", ret);
+   
       this.muteBtn.current.innerHTML = 'cancel muted';
     }else {
-      HebPlayerPort.setMuted(this.curruntID, false);
+      let ret = HebPlayerPort.setMuted(this.curruntID, false);
+      console.log("stop return is %s", ret);
+    
       this.muteBtn.current.innerHTML = 'to muted';
     }
   }
