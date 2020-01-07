@@ -40,12 +40,12 @@ class DemoPlayer extends Component {
   onMute() {
     if ('to muted' === this.muteBtn.current.innerHTML) {
       let ret = HebPlayerPort.setMuted(this.curruntID, true);
-      console.log("stop return is %s", ret);
+      console.log("setMuted return is %s", ret);
    
       this.muteBtn.current.innerHTML = 'cancel muted';
     }else {
       let ret = HebPlayerPort.setMuted(this.curruntID, false);
-      console.log("stop return is %s", ret);
+      console.log("setMuted return is %s", ret);
     
       this.muteBtn.current.innerHTML = 'to muted';
     }
