@@ -75,9 +75,11 @@ class HebPlayerPort {
     if(!HebPlayerPort.isInited()) {
       console.error('hebPlayer Not initialized yet!');
     }
+    if(!HebPlayerPort.isGbID(gbID)) {
+      return "[fail] 非法的gb28181设备编号";
+    }
 
-    HebPlayerPort.corePlayer.play(gbID, divID, callback);
-    console.log('done to do heb playVideo [' + gbID + ']');
+    return HebPlayerPort.corePlayer.play(gbID, divID, callback);
   }
 
   static playVideo2(gbID, divObj, callback) {
@@ -89,13 +91,15 @@ class HebPlayerPort {
       divObj.id = 'hebP_' + HebPlayerPort.nextDivID;
       HebPlayerPort.nextDivID++;
     }
-    HebPlayerPort.playVideo(gbID, divObj.id, callback);
-    console.log('done to do heb playVideo2');
+    return HebPlayerPort.playVideo(gbID, divObj.id, callback);
   }
 
   static stopVideo(gbID) {
     if(!HebPlayerPort.isInited()) {
       console.error('hebPlayer Not initialized yet!');
+    }
+    if(!HebPlayerPort.isGbID(gbID)) {
+      return "[fail] 非法的gb28181设备编号";
     }
 
     HebPlayerPort.corePlayer.stop(gbID);
@@ -103,6 +107,13 @@ class HebPlayerPort {
   }
 
   static setMuted(gbID, isTrue) {
+    if(!HebPlayerPort.isInited()) {
+      console.error('hebPlayer Not initialized yet!');
+    }
+    if(!HebPlayerPort.isGbID(gbID)) {
+      return "[fail] 非法的gb28181设备编号";
+    }
+
     let ret = HebPlayerPort.corePlayer.setMuted(gbID, isTrue);
     console.log('done to do heb setMuted [' + gbID + ']');
     return ret;
@@ -138,6 +149,18 @@ class HebPlayerPort {
   static isNull(obj) {
     return null === obj || undefined === obj;
   }
+
+  static isGbID(gbID) {
+    if (typeof gbID !== 'string' || gbID.length !== 20) {
+        return false;
+    }
+    for (let i = 0; i < gbID.length; i++) {
+        if (gbID[i] < '0' || gbID[i] > '9') {
+            return false;
+        }
+    }
+    return true;
+}
 
 }
 

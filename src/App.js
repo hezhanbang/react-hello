@@ -13,17 +13,22 @@ class DemoPlayer extends Component {
 
   onPlay() {
     this.curruntID = this.gbID.current.value;
-    HebPlayerPort.playVideo2(this.curruntID, this.videoDiv.current,  (type, a,b,c,d)=> {
+    let ret = HebPlayerPort.playVideo2(this.curruntID, this.videoDiv.current,  (type, a,b,c,d)=> {
       if ("resolution" === type) {
         console.log("resolution is %s", a);
       }else if('dynamicInfo' === type) {
         console.log("dynamicInfo is %skbps, received:%s, lost:%s %sfps", a, b, c, d);
+      }else if("offline" === type) {
+        console.log("device is offline");
       }
     });
+
+    console.log("play return is %s", ret);
   }
 
   onStop() {
-    HebPlayerPort.stopVideo(this.curruntID);
+    let ret = HebPlayerPort.stopVideo(this.curruntID);
+    console.log("stop return is %s", ret);
   }
 
   onMute() {
