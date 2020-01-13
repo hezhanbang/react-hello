@@ -127,6 +127,16 @@ class HebPlayerPort {
     return HebPlayerPort.corePlayer.setTalkback(gbID, enable);
   }
 
+  static isErrorStr(str) {
+    if (undefined === str || null === str || typeof str !== 'string') {
+        return false;
+    }
+    if (str.indexOf('[fail]') >= 0) {
+        return true;
+    }
+    return false;
+}
+
   static getScriptFileUrl() {
     let sc = document.getElementsByTagName("script");
     let idx = 0;

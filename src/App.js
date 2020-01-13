@@ -5,7 +5,6 @@ import './App.css';
 class DemoPlayer extends Component {
   constructor(props) {
     super(props);
-    this.curruntID = '';
     this.gbID = React.createRef();
     this.muteBtn = React.createRef();
     this.talkbackBtn = React.createRef();
@@ -13,8 +12,7 @@ class DemoPlayer extends Component {
   }
 
   onPlay() {
-    this.curruntID = this.gbID.current.value;
-    let ret = HebPlayerPort.playVideo2(this.curruntID, this.videoDiv.current,  (type, a,b,c,d)=> {
+    let ret = HebPlayerPort.playVideo2(this.gbID.current.value, this.videoDiv.current,  (type, a,b,c,d)=> {
       if ("resolution" === type) {
         console.log("resolution is %s", a);
       }else if('dynamicInfo' === type) {
@@ -34,19 +32,23 @@ class DemoPlayer extends Component {
   }
 
   onStop() {
-    let ret = HebPlayerPort.stopVideo(this.curruntID);
+    let ret = HebPlayerPort.stopVideo(this.gbID.current.value);
     console.log("stop return is %s", ret);
+    if(false === HebPlayerPort.isErrorStr(ret)) {
+      this.talkbackBtn.current.innerHTML = 'enable talkback';
+      this.muteBtn.current.innerHTML = 'cancel muted';
+    }
   }
 
   onMute() {
     if ('to muted' === this.muteBtn.current.innerHTML) {
-      let ret = HebPlayerPort.setMuted(this.curruntID, true);
+      let ret = HebPlayerPort.setMuted(this.gbID.current.value, true);
       console.log("setMuted return is %s", ret);
    
       this.muteBtn.current.innerHTML = 'cancel muted';
     }else {
-      let ret = HebPlayerPort.setMuted(this.curruntID, false);
-      console.log("setMuted return is %s", ret);
+      let ret = HebPlayerPort.setMuted(this.gbID.current.value, false);
+      console.log("setMuted return 2 is %s", ret);
     
       this.muteBtn.current.innerHTML = 'to muted';
     }
@@ -54,15 +56,16 @@ class DemoPlayer extends Component {
 
   onTalkback() {
     if ('enable talkback' === this.talkbackBtn.current.innerHTML) {
-      let ret = HebPlayerPort.setTalkback(this.curruntID, true);
+      let ret = HebPlayerPort.setTalkback(this.gbID.current.value, true);
       console.log("setTalkback return is %s", ret);
    
       this.talkbackBtn.current.innerHTML = 'disable talkback';
     }else {
-      let ret = HebPlayerPort.setTalkback(this.curruntID, false);
+      let ret = HebPlayerPort.setTalkback(this.gbID.current.value, false);
       console.log("setTalkback return is %s", ret);
     
       this.talkbackBtn.current.innerHTML = 'enable talkback';
+      this.muteBtn.current.innerHTML = 'cancel muted';
     }
   }
 
@@ -72,7 +75,7 @@ class DemoPlayer extends Component {
         <input ref={this.gbID} className="App-gbID" type="text" defaultValue="3402000000132055000x" />
         <button type="button" onClick={this.onPlay.bind(this)} >play</button>
         <button type="button" onClick={this.onStop.bind(this)} >stop</button>
-        <button ref={this.muteBtn} type="button" onClick={this.onMute.bind(this)} >to mute</button>
+        <button ref={this.muteBtn} type="button" onClick={this.onMute.bind(this)} >cancel muted</button>
         <button ref={this.talkbackBtn} type="button" onClick={this.onTalkback.bind(this)} >enable talkback</button>
         <div ref={this.videoDiv} className="App-video" test2="123abcd" ></div>
       </div>

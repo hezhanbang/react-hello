@@ -4,7 +4,7 @@ import DemoPlayer from './App';
 import HebPlayerPort from './hebPlayerLoader';
 import './index.css';
 
-HebPlayerPort.init('http://172.21.4.114:9004/player/22.js', true);
+HebPlayerPort.init('http://192.168.2.100:9004/player/hebPlayer.js', true);
 
 ReactDOM.render(
   <div><DemoPlayer /><DemoPlayer /><DemoPlayer /></div>,
