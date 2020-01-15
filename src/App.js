@@ -59,6 +59,10 @@ class DemoPlayer extends Component {
       let ret = HebPlayerPort.setTalkback(this.gbID.current.value, true);
       console.log("setTalkback return is %s", ret);
    
+      if(false === HebPlayerPort.isErrorStr(ret)) {
+        this.muteBtn.current.innerHTML = 'to muted';
+      }
+
       this.talkbackBtn.current.innerHTML = 'disable talkback';
     }else {
       let ret = HebPlayerPort.setTalkback(this.gbID.current.value, false);
